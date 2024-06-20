@@ -11,6 +11,15 @@ import {
   BotonSuscribir,
 } from "./styled";
 
+/**
+ * Componente para mostrar un modal de suscripción.
+ * @component
+ * @param {Props} props - Las propiedades del componente.
+ * @param {() => void} props.onClose - Función a ejecutar cuando se cierra el modal.
+ * @returns {JSX.Element} El componente de modal de suscripción.
+ */
+
+
 interface Props {
   onClose: () => void;
 }

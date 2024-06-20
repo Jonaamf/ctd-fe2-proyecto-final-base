@@ -1,5 +1,11 @@
 import { INoticias, INoticiasNormalizadas } from "../news/fakeRest";
 
+/**
+ * Transforma los datos de noticias obtenidos en un formato normalizado.
+ * @param {INoticias[]} noticias - Las noticias a transformar.
+ * @returns {INoticiasNormalizadas[]} Las noticias normalizadas.
+ */
+
 export const transformarDatos = (noticias: INoticias[]): INoticiasNormalizadas[] => {
   return noticias.map((n) => {
     const titulo = n.titulo

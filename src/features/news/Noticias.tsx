@@ -12,6 +12,12 @@ import {
   TituloNoticias,
 } from "./styled";
 
+/**
+ * Componente principal que muestra las noticias y maneja el estado de los modales.
+ * @component
+ * @returns {JSX.Element} El componente de noticias.
+ */
+
 const Noticias = () => {
   const [noticias, setNoticias] = useState<INoticiasNormalizadas[]>([]);
   const [modal, setModal] = useState<INoticiasNormalizadas | null>(null);

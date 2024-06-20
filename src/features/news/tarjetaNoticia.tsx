@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { INoticiasNormalizadas } from "../news/fakeRest";
 import {
   TarjetaNoticia as Tarjeta,
   ImagenTarjetaNoticia,
@@ -7,7 +8,16 @@ import {
   DescripcionTarjetaNoticia,
   BotonLectura,
 } from "./styled";
-import { INoticiasNormalizadas } from "../news/fakeRest";
+
+
+/**
+ * Componente para mostrar una tarjeta de noticia individual.
+ * @component
+ * @param {Props} props - Las propiedades del componente.
+ * @param {INoticiasNormalizadas} props.noticia - La noticia a mostrar.
+ * @param {() => void} props.onClick - Función a ejecutar cuando se hace clic en el botón de lectura.
+ * @returns {JSX.Element} El componente de tarjeta de noticia.
+ */
 
 interface Props {
   noticia: INoticiasNormalizadas;

@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { CloseButton as Close } from "../../assets";
+import { INoticiasNormalizadas } from "../news/fakeRest";
 import {
   ContenedorModal,
   TarjetaModal,
@@ -9,7 +10,15 @@ import {
   TituloModal,
   DescripcionModal,
 } from "./styled";
-import { INoticiasNormalizadas } from "../news/fakeRest";
+
+/**
+ * Componente para mostrar un modal de noticia.
+ * @component
+ * @param {Props} props - Las propiedades del componente.
+ * @param {INoticiasNormalizadas} props.noticia - La noticia a mostrar en el modal.
+ * @param {() => void} props.onClose - Función a ejecutar cuando se cierra el modal.
+ * @returns {JSX.Element} El componente de modal de noticia.
+ */
 
 interface Props {
   noticia: INoticiasNormalizadas;

@@ -6,6 +6,15 @@ export interface INoticias {
   esPremium: boolean;
   imagen: string;
 }
+export interface INoticiasNormalizadas {
+  id: number;
+  titulo: string;
+  descripcion: string;
+  fecha: number | string;
+  esPremium: boolean;
+  imagen: string;
+  descripcionCorta?: string;
+}
 
 const simularTiempoTranscurrido: (decrementMiliseconds: number) => Date = (
   decrementMiliseconds

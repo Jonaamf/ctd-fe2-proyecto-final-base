@@ -21,10 +21,16 @@ test("renderizar componentes", () => {
 test('debería mostrar una cita aleatoria cuando no se ingresa un nombre', async () => {
   render(<Cita />);
 
-  fireEvent.click(screen.getByRole('button', { name: /Obtener cita aleatoria/i }));
-
-  const cita = await screen.findByText(/I believe the children are the future... Unless we stop them now!/i);
-  expect(cita).toBeInTheDocument();
+  const button = await screen.findByText(/Obtener Cita/i);
+  fireEvent.click(button)
+  
+  await waitFor(() => {
+    expect (
+      screen.getByText(
+        /You're turning me into a criminal when all I want to be is a petty thug./i
+      )
+    ).toBeInTheDocument();
+  })
 });
 
 test('Debe mostrar una cita del personaje especificado 1', async () => {

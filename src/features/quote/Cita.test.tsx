@@ -2,8 +2,7 @@ import { screen, fireEvent, waitFor } from '@testing-library/react';
 import { rest } from 'msw';
 import { server } from '../mocks/server';
 import { render } from '../../test-utils';
-import Cita from '../quote/Cita';
-
+import Cita from './Cita';
 
 //Prueba Test
 
@@ -62,4 +61,24 @@ test('debería mostrar un mensaje de error si se ingresa un valor numérico', as
 
   const errorMessage = await screen.findByText(/Por favor ingrese un nombre válido/i);
   expect(errorMessage).toBeInTheDocument();
+});
+
+test("borrar la cita cuando apretas el boton", async () => {
+  render(<Cita />);
+
+  fireEvent.change(screen.getByPlaceholderText(/ingresa el nombre del autor/i), { target: { value: 'Homer Simpson' } });
+  fireEvent.click(screen.getByRole('button', { name: /obtener cita/i }));
+
+  await waitFor(() => {
+    expect(screen.getByText(/d' oh!/i)).toBeInTheDocument();
+  });
+
+  fireEvent.click(screen.getByRole('button', { name: /borrar/i }));
+
+  await waitFor(() => {
+    expect(screen.queryByText(/d' oh!/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Homer Simpson/i)).not.toBeInTheDocument();
+  });
+
+  expect(screen.getByPlaceholderText(/ingresa el nombre del autor/i)).toHaveValue('');
 });

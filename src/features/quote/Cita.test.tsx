@@ -21,42 +21,34 @@ test("renderizar componentes", () => {
 test('debería mostrar una cita aleatoria cuando no se ingresa un nombre', async () => {
   render(<Cita />);
 
-  const button = await screen.findByText(/Obtener Cita/i);
-  fireEvent.click(button)
-  
+  const button = await screen.findByText(/Obtener cita/i);
+  fireEvent.click(button);
+
   await waitFor(() => {
-    expect (
+    expect(
       screen.getByText(
         /You're turning me into a criminal when all I want to be is a petty thug./i
       )
     ).toBeInTheDocument();
-  })
+  });
 });
 
-test('Debe mostrar una cita del personaje especificado 1', async () => {
+test("debería mostrar una cita de ese personaje", async () => {
   render(<Cita />);
 
-  const input = screen.getByPlaceholderText(/Ingresa el nombre del autor/i);
-  fireEvent.change(input, { target: { value: 'Homer' } });
-  const button = screen.getByText(/Obtener cita/i);
-  fireEvent.click(button);
+  fireEvent.change(screen.getByLabelText(/Author Cita/i), { target: { value: 'Homer Simpson' } });
+  const boton = await screen.findByText(/Obtener cita/i);
+  fireEvent.click(boton);
+  
+  await waitFor(() => {
+    expect(
+      screen.getByText(
+        /All I'm gonna use this bed for is sleeping, eating and maybe building a little fort./i
+      )
+    ).toBeInTheDocument();
+  });
 
-  const cita = await screen.findByText(/Facts are meaningless. You could use facts to prove anything that's even remotely true./i);
-  const autor = await screen.findByText(/Homer Simpson/i);
-  expect(cita).toBeInTheDocument();
-  expect(autor).toBeInTheDocument();
-});
-
-test("Debe mostrar una cita del personaje especificado 2", async () => {
-  render(<Cita />);
-
-  const input = screen.getByPlaceholderText(/Ingresa el nombre del autor/i);
-  fireEvent.change(input, { target: { value: 'Homer' } });
-  const button = screen.getByText(/Obtener cita/i);
-  fireEvent.click(button);
-
-  const cita = await screen.findByText(/Oh, so they have Internet on computers now!/i);
-  expect(cita).toBeInTheDocument();
+  expect(screen.getByText(/Homer Simpson/i)).toBeInTheDocument();
 });
 
 test('debería mostrar un mensaje de error si se ingresa un valor numérico', async () => {
@@ -72,19 +64,20 @@ test('debería mostrar un mensaje de error si se ingresa un valor numérico', as
 test("borrar la cita cuando apretas el boton", async () => {
   render(<Cita />);
 
-  fireEvent.change(screen.getByPlaceholderText(/ingresa el nombre del autor/i), { target: { value: 'Homer Simpson' } });
-  fireEvent.click(screen.getByRole('button', { name: /obtener cita/i }));
+  fireEvent.change(screen.getByPlaceholderText(/Ingresa el nombre del autor/i), { target: { value: 'Homer Simpson' } });
+  fireEvent.click(screen.getByRole('button', { name: /Obtener cita/i }));
 
   await waitFor(() => {
-    expect(screen.getByText(/d' oh!/i)).toBeInTheDocument();
+    expect(screen.getByText(/All I'm gonna use this bed for is sleeping, eating and maybe building a little fort./i)).toBeInTheDocument();
   });
 
-  fireEvent.click(screen.getByRole('button', { name: /borrar/i }));
+  fireEvent.click(screen.getByRole('button', { name: /Borrar/i }));
 
   await waitFor(() => {
-    expect(screen.queryByText(/d' oh!/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/All I'm gonna use this bed for is sleeping, eating and maybe building a little fort./i)).not.toBeInTheDocument();
     expect(screen.queryByText(/Homer Simpson/i)).not.toBeInTheDocument();
   });
 
-  expect(screen.getByPlaceholderText(/ingresa el nombre del autor/i)).toHaveValue('');
+  expect(screen.getByPlaceholderText(/Ingresa el nombre del autor/i)).toHaveValue('');
 });
+
